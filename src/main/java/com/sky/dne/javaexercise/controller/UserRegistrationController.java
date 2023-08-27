@@ -20,6 +20,7 @@ public class UserRegistrationController {
 	@Autowired
 	private UserRegistrationService userRegistrationService;
 
+	//method to open registration form
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		UserDto user = new UserDto();
@@ -27,7 +28,7 @@ public class UserRegistrationController {
 		return "register";
 	}
 
-	// handler method to handle register user form submit request
+	//method to handle register user form submit request
 	@PostMapping("/save-registration")
 	public String registration(@ModelAttribute("user") UserDto user, BindingResult result, Model model) {
 //		User existing = userService.findByEmail(user.getEmail());
@@ -43,6 +44,7 @@ public class UserRegistrationController {
 		return "redirect:list";
 	}
 
+	//method to fetch/display the list of users
 	@GetMapping("list")
 	public String showUpdateForm(Model model) {
 		UsersListResponse response = userRegistrationService.getUsers();
@@ -50,6 +52,7 @@ public class UserRegistrationController {
 		return "index";
 	}
 
+	//method to open edit user form
 	@GetMapping("user/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		UserDetails user = userRegistrationService.findById(id);
@@ -58,6 +61,7 @@ public class UserRegistrationController {
 		return "update-user";
 	}
 
+	//method to handle edit user form submit request - update user 
 	@PostMapping("user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, /* @Validated */ /* UserDetails */ UserDetails user,
 			BindingResult result, Model model) {
@@ -74,6 +78,7 @@ public class UserRegistrationController {
 		return "index";
 	}
 
+	//method to handle delete user request by id
 	@GetMapping("user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		try {
